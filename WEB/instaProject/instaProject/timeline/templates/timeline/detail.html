@@ -1,0 +1,7 @@
+{% extends 'base.html' %} {% block title %}Timeline{% endblock %} {% block content %}
+<h1>{{ post.description }}</h1>
+<img src="{{post.image}}" alt="img" width=300 height=300>
+<br />
+<br />
+<h2> Posted by : {{post.author}}</h2>
+<a href="{% url 'timeline:index' %}">Back to your posts</a> {% endblock %}
