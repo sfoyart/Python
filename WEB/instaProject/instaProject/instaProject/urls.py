@@ -19,14 +19,15 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
+import os
 
 
 urlpatterns = [
     url(r'^timeline/', include('timeline.urls'), name='timeline'),
     url(r'^accounts/login/$', auth_views.login,
-        {'template_name': 'login.html'}, name='login'),
+        {'template_name': 'core/login.html'}, name='login'),
+    url(r'^accounts/profile/$', core_views.profile, name='profile'),
     url(r'^logout/$', auth_views.logout,
         {'next_page': 'login'}, name='logout'),
     url(r'^accounts/signup/$', core_views.signup, name='signup'),
-    url(r'^admin/', admin.site.urls),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    url(r'^admin/', admin.site.urls), ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

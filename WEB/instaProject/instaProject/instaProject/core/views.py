@@ -2,11 +2,24 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
+from django.core.files.storage import FileSystemStorage
 
 
 @login_required
 def home(request):
-    return render(request, 'home.html')
+    return render(request, 'core/home.html')
+
+
+def profile(request):
+    if request.method == 'POST' and request.FILES['profile_picture']:
+        myfile = request.FILES['profile_picture']
+        fs = FileSystemStorage()
+        filename = fs.save(myfile.name, myfile)
+        uploaded_file_url = fs.url(filename)
+        return render(request, 'core/profile.html', {
+            'uploaded_file_url': uploaded_file_url
+        })
+    return render(request, 'core/profile.html')
 
 
 def signup(request):
@@ -21,4 +34,4 @@ def signup(request):
             return redirect('timeline:index')
     else:
         form = UserCreationForm()
-    return render(request, 'signup.html', {'form': form})
+    return render(request, 'core/signup.html', {'form': form})
