@@ -3,6 +3,7 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from django.core.files.storage import FileSystemStorage
+import os
 
 
 @login_required
@@ -15,7 +16,7 @@ def profile(request):
         myfile = request.FILES['profile_picture']
         fs = FileSystemStorage()
         filename = fs.save(myfile.name, myfile)
-        uploaded_file_url = fs.url(filename)
+        uploaded_file_url = fs.url(os.path.join('img/profile_pics', filename))
         return render(request, 'core/profile.html', {
             'uploaded_file_url': uploaded_file_url
         })

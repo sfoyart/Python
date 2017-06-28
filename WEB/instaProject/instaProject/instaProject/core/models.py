@@ -11,7 +11,7 @@ def get_image_path(instance, filename):
 class UserProfile(models.Model):
     user = model.ForeignKey(User, unique=True, related_name='user')
     profile_picture = ImageField(
-        upload_to='media', blank=True, null=True)
+        upload_to='img/profile_pics', null=True)
     follows = models.ManyToMany(
         "self", related_name='follows', symmetrical=False)
     followed_by = models.ManyToMany(

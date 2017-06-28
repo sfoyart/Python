@@ -11,7 +11,7 @@ class Post(models.Model):
     description = models.CharField(max_length=200)
     author = models.ForeignKey(
         User, on_delete=models.CASCADE, blank=True, related_name='author')
-    picture = models.ImageField(upload_to='img/all-images', null=True)
+    picture = models.ImageField(upload_to='img/posts', null=True)
     pub_date = models.DateTimeField('date published',  auto_now_add=True)
 
     def __str__(self):
